@@ -107,7 +107,7 @@ public class CurrentLocation extends Activity {
                 Toast.makeText(this,"You are out of range of the selected building",Toast.LENGTH_LONG).show();
 
             }
-            result.setText("Nearest point :  "+ closestPosition);
+            result.setText("Current Location :  "+ closestPosition);
 
             min_distance = positionData.uDistance(positionsData.get(0), wifis);
             String closestPosition2 = null;

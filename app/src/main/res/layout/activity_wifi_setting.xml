@@ -8,12 +8,14 @@
         android:id="@+id/button_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Add more wifis" />
 
     <Button
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Save" />
 
     <ListView
@@ -21,5 +23,5 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:divider="#0000CC"
-        android:dividerHeight="0.1dp"></ListView>
+        android:dividerHeight="0.1dp" />
 </LinearLayout>

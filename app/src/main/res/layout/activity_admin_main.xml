@@ -5,13 +5,16 @@
     android:orientation="vertical" >
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="320dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/stroke"
         android:text="Admin Menu"
         android:textSize="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:id="@+id/textView" />
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_gravity="center" />
 
     <Button
         android:id="@+id/learn_button"
@@ -19,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Learn the AP"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="150dp"
         android:layout_marginHorizontal="70dp"
         android:onClick="onClick" />
 
