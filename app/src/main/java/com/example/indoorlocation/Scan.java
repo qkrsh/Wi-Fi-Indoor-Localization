@@ -98,7 +98,6 @@ public class Scan extends Activity {
                 currentCount = 0;
                 timer = new Timer();
                 myTimerTask = new TimerTask() {
-
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub

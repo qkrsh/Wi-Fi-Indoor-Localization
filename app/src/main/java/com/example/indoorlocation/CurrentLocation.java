@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +26,6 @@ public class CurrentLocation extends Activity {
     String building;
     TextView result;
     Button locate;
-    ImageView Image;
 
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
@@ -33,8 +33,8 @@ public class CurrentLocation extends Activity {
         db = new DatabaseHelper(this);
         buildings = db.getBuildings();
         locate = (Button) findViewById(R.id.locate);
-        Image = (ImageView) findViewById(R.id.image);
         result = (TextView) findViewById(R.id.result);
+
         arrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, buildings);
 
@@ -82,14 +82,14 @@ public class CurrentLocation extends Activity {
             String closestPosition = null;
             ArrayList<Router> wifis = db.getFriendlyWifis(building);
 
-            int min_distance = positionData.uDistance(positionsData.get(0), wifis);
+            float min_distance = positionData.uDistance(positionsData.get(0), wifis);
             int j=0;
             closestPosition = positionsData.get(0).getName();
             String res = "";
             res += closestPosition + "\n" + min_distance;
             res += "\n" + positionsData.get(0).toString();
             for (int i = 1; i < positionsData.size(); i++) {
-                int distance = positionData.uDistance(positionsData.get(i), wifis);
+                float distance = positionData.uDistance(positionsData.get(i), wifis);
                 res += "\n" + positionsData.get(i).getName() + "\n" + distance;
                 res += "\n" + positionsData.get(i).toString();
                 if (distance < min_distance) {

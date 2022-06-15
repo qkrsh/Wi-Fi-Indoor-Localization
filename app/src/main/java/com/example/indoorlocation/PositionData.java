@@ -41,8 +41,8 @@ public class PositionData implements Serializable {
         return values;
     }
 
-    public int uDistance(PositionData arg,ArrayList<Router> friendlyWifis){
-        int sum=0;
+    public float uDistance(PositionData arg,ArrayList<Router> friendlyWifis){
+        float sum=0;
         int count=0;
 
         for(Map.Entry<String, Integer> e: this.values.entrySet()){
@@ -54,6 +54,7 @@ public class PositionData implements Serializable {
                 count++;
             }
         }
+        sum=sum/count;
 
         if(count<MINIMUM_COMMON_ROUTERS){
             sum=MAX_DISTANCE;

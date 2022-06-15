@@ -26,15 +26,6 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
