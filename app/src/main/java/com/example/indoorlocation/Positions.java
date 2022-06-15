@@ -75,7 +75,6 @@ public class Positions extends Activity {
         textHeading = (TextView) findViewById(R.id.textHeading);
         positionName = (EditText) findViewById(R.id.position_name);
         calibrate = (Button) findViewById(R.id.calibratebutton);
-        finish = (Button) findViewById(R.id.finish);
         positionsList = (ListView) findViewById(R.id.positionslist);
         gson = new Gson();
         resultsText = "";
@@ -133,31 +132,6 @@ public class Positions extends Activity {
             }
         });
 
-        finish.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Floors.class);
-                setResult(2, intent);
-                ArrayList<PositionData> buildingReadings = db.getReadings(building);
-                ArrayList<Router> friendlyWifis = db.getFriendlyWifis(building);
-                String buildingReadingsJson = gson.toJson(buildingReadings);
-                String friendlyWifisJson = gson.toJson(friendlyWifis);
-                JSONObject json = new JSONObject();
-                try {
-                    json.accumulate("building_id", building);
-                    json.accumulate("readings", new JSONArray(buildingReadingsJson));
-                    json.accumulate("friendly_wifis", new JSONArray(friendlyWifisJson));
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                new Submit(getApplicationContext()).execute(json.toString());
-                finish();
-
-            }
-        });
-
         positionsList
                 .setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView parent, View v,
@@ -181,7 +155,6 @@ public class Positions extends Activity {
                             public boolean canDismiss(int position) {
                                 return true;
                             }
-
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
@@ -210,6 +183,7 @@ public class Positions extends Activity {
             super.onActivityResult(request, result, intent);
         }
     }
+
     @Override
     protected void onResume() {
         positions = db.getPositions(building);

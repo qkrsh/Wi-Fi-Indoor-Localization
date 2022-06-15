@@ -13,16 +13,19 @@ public class AdminMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_main);
+    }
 
-        Button floorbtn = findViewById(R.id.learn_button);
-        Button updatebtn = findViewById(R.id.sync_button);
+    public void onClick(View view) {
 
-        floorbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Floors.class);
+        Button button= (Button) view;
+        Intent intent;
+        switch (button.getId()) {
+            case R.id.learn_button:
+                intent = new Intent(AdminMainActivity.this, Floors.class);
                 startActivity(intent);
-            }
-        });
+                break;
+            default:
+                break;
+        }
     }
 }

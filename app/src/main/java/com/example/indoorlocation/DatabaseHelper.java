@@ -2,11 +2,13 @@ package com.example.indoorlocation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -53,8 +55,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int deleteReading(String building_id, String position_id) {
         SQLiteDatabase db = getWritableDatabase();
         String[] args = new String[] { building_id, position_id };
-        return db.delete(READINGS_TABLE, "building_id=? and position_id=?", args);
+        return db.delete(READINGS_TABLE, "building_id=? and position_id=?",
+                args);
+
     }
+
 
     public boolean deleteBuilding(String building_id) {
         SQLiteDatabase db = getWritableDatabase();
@@ -62,6 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(AP_TABLE,"building_id=?",args);
         db.delete(READINGS_TABLE, "building_id=?", args);
         return true;
+
     }
 
     public ArrayList<String> getBuildings() {
@@ -75,6 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
         return result;
+
     }
 
     public ArrayList<Router> getFriendlyWifis(String building_id) {
@@ -89,12 +96,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
         return result;
+
     }
 
     public int deleteFriendlyWifis(String building_id) {
         SQLiteDatabase db = getWritableDatabase();
         String[] args = new String[] { building_id };
         return db.delete(AP_TABLE, "building_id=?", args);
+
     }
 
     public boolean addFriendlyWifis(String building_id, ArrayList<Router> wifis) {
@@ -155,6 +164,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ArrayList<PositionData> readings= null;
             ArrayList<Router> friendlyWifis=null;
 
+
+
             try {
                 Log.d("Readings",building.get("readings").toString());
 
@@ -173,9 +184,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 return false;
             }
 
+
+
         }
         return true;
+
     }
+
 
     public ArrayList<PositionData> getReadings(String building_id) {
         HashMap<String, PositionData> positions = new HashMap<String, PositionData>();
@@ -207,4 +222,3 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 }
-

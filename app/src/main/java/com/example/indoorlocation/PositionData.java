@@ -23,9 +23,11 @@ public class PositionData implements Serializable {
         values.put(router.getBSSID(), strength);
         routers.put(router.getBSSID(),router.getSSID());
     }
+
     public String getName() {
         return name;
     }
+
     public String toString() {
         String result="";
         result+=name+"\n";

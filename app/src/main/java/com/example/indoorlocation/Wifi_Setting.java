@@ -69,28 +69,17 @@ public class Wifi_Setting extends Activity {
                 {
                     Toast toast = Toast.makeText(getApplicationContext(),"Saved :)", Toast.LENGTH_SHORT);
                     toast.show();
-
                 }
-
-
-
-
             }
         });
         wifisList.setOnItemLongClickListener(new OnItemLongClickListener() {
-
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view,
-                                           int arg2, long arg3) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int arg2, long arg3) {
                 wifis.remove(arg2);
-
                 arrayAdapter.notifyDataSetChanged();
                 return false;
             }
-
         });
-
-
     }
 
     public void updateOptions() {
@@ -98,7 +87,6 @@ public class Wifi_Setting extends Activity {
         for (int i = 0; i < results.size(); i++)
             options[i] = results.get(i).SSID;
         selections = new boolean[options.length];
-
     }
 
     public class ButtonClickHandler implements View.OnClickListener {
@@ -112,7 +100,6 @@ public class Wifi_Setting extends Activity {
             }
         }
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -128,7 +115,6 @@ public class Wifi_Setting extends Activity {
         updateOptions();
         onCreateDialog(0).show();
     }
-
 
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -160,14 +146,12 @@ public class Wifi_Setting extends Activity {
     }
 
     protected void updateFriendlyWifis() {
-        //wifis.clear();
         for (int i = 0; i < options.length; i++) {
             if (selections[i]) {
                 Router router = new Router(results.get(i).SSID,
                         results.get(i).BSSID);
                 if (!wifis.contains(router))
                     wifis.add(router);
-
             }
             arrayAdapter = new ArrayAdapter<Router>(this,
                     android.R.layout.simple_list_item_1, wifis);

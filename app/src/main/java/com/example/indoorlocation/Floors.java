@@ -78,7 +78,7 @@ public class Floors extends Activity {
             @Override
             public void onClick(View arg0) {
                 final String input = buildingName.getText().toString();
-                if (input.length() < 4) {
+                if (input.length() < 1) {
                     new AlertDialog.Builder(context)
                             .setTitle(getString(R.string.warning))
                             .setMessage(getString(R.string.dialog_message))
@@ -133,7 +133,6 @@ public class Floors extends Activity {
                                     db.deleteBuilding(buildings.get(position));
                                     buildings.remove(position);
                                     arrayAdapter.notifyDataSetChanged();
-
                                 }
 
                             }

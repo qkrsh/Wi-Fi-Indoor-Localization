@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class CurrentLocation extends Activity {
     String building;
     TextView result;
     Button locate;
+    ImageView Image;
 
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
@@ -31,7 +33,7 @@ public class CurrentLocation extends Activity {
         db = new DatabaseHelper(this);
         buildings = db.getBuildings();
         locate = (Button) findViewById(R.id.locate);
-
+        Image = (ImageView) findViewById(R.id.image);
         result = (TextView) findViewById(R.id.result);
         arrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, buildings);
@@ -44,7 +46,6 @@ public class CurrentLocation extends Activity {
                 Intent intent = new Intent(getApplicationContext(), Scan.class);
                 intent.putExtra("isLearning", false);
                 startActivityForResult(intent,0);
-
             }
         });
 
@@ -52,15 +53,13 @@ public class CurrentLocation extends Activity {
                 android.R.layout.simple_list_item_1, buildings);
         // Set The Adapter
         if (buildings.size()==0) {
-            Toast.makeText(this, "No building data available.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No Floor data available.", Toast.LENGTH_LONG).show();
             locate.setEnabled(false);
         }
         else{
-
-
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setCancelable(false);
-            builder.setTitle("Choose building");
+            builder.setTitle("Choose Floor");
             builder.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -77,8 +76,7 @@ public class CurrentLocation extends Activity {
                                     Intent intent) {
         // TODO Auto-generated method stub
         if(resultCode==RESULT_OK){
-            PositionData positionData = (PositionData) intent
-                    .getSerializableExtra("PositionData");
+            PositionData positionData = (PositionData) intent.getSerializableExtra("PositionData");
             positionsData=db.getReadings(building);
 
             String closestPosition = null;
@@ -98,48 +96,13 @@ public class CurrentLocation extends Activity {
                     min_distance = distance;
                     j=i;
                     closestPosition = positionsData.get(i).getName();
-
                 }
-
             }
             if (min_distance == PositionData.MAX_DISTANCE){
                 closestPosition="OUT OF RANGE";
-                Toast.makeText(this,"You are out of range of the selected building",Toast.LENGTH_LONG).show();
-
+                Toast.makeText(this,"You are out of range of the selected Floor",Toast.LENGTH_LONG).show();
             }
             result.setText("Current Location :  "+ closestPosition);
-
-            min_distance = positionData.uDistance(positionsData.get(0), wifis);
-            String closestPosition2 = null;
-
-            closestPosition2 = positionsData.get(0).getName();
-            res = "";
-            res += closestPosition2 + "\n" + min_distance;
-            res += "\n" + positionsData.get(0).toString();
-            for (int i = 1; i < positionsData.size(); i++) {
-                if(i!=j) {
-                    int distance = positionData.uDistance(positionsData.get(i), wifis);
-                    res += "\n" + positionsData.get(i).getName() + "\n" + distance;
-                    res += "\n" + positionsData.get(i).toString();
-                    closestPosition2 = positionsData.get(i).getName();//////////////////////////
-                    if(closestPosition2.equals(closestPosition))
-                        continue;
-                    if (distance < min_distance) {
-                        min_distance = distance;
-                        closestPosition2 = positionsData.get(i).getName();
-
-                    }
-                }
-            }
-            if (min_distance == PositionData.MAX_DISTANCE){
-                closestPosition2="OUT OF RANGE";
-                Toast.makeText(this,"You are out of range of the selected building",Toast.LENGTH_LONG).show();
-
-            }
-
-            res += "\nCurrent:\n" + positionData.toString();
-            Log.v("Result",res);
-
             super.onActivityResult(requestCode, resultCode, intent);
         }
     }

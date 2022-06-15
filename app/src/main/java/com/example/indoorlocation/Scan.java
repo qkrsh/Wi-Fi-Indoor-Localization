@@ -29,7 +29,7 @@ public class Scan extends Activity {
     private TextView warning;
     private TextView timeRemaining;
     private Button calibrate;
-    private int readingCount = 10;
+    private int readingCount = 30;
     private int currentCount;
     String currentPositionName;
     WifiManager wifi;
@@ -116,7 +116,6 @@ public class Scan extends Activity {
         if (currentCount >= readingCount) {
             if (myTimerTask != null)
                 myTimerTask.cancel();
-
         }
         currentCount++;
         wifi.startScan();
@@ -136,44 +135,33 @@ public class Scan extends Activity {
                 }
             }
             if (!found) {
-
                 ResultData data = new ResultData(new Router(ssid0, bssid));
                 data.values.add(rssi0);
                 resultsData.add(data);
             }
-            // String rssiString0 = String.valueOf(rssi0);
-            // textStatus = textStatus.concat("\n" + ssid0 + "   " +
-            // rssiString0);
-            // System.out.println("ajsdhks"+textStatus);
         }
-        // Log.v("textStatus", textStatus);
-        // System.out.println(""+textStatus);
-        runOnUiThread(new Runnable() {
 
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 // TODO Auto-generated method stub
                 // result.setText("here"+currentCount);
-                timeRemaining
-                        .setText(" " + (readingCount - currentCount) + "s");
+                timeRemaining.setText(" " + (readingCount - currentCount) + "s");
                 if (currentCount >= readingCount) {
                     returnResults();
                 }
             }
         });
-
     }
 
     private void returnResults() {
         // TODO Auto-generated method stub
-
         positionData = new PositionData(currentPositionName);
         for (int length = 0; length < resultsData.size(); length++) {
 
             int sum = 0;
             for (int l = 0; l < resultsData.get(length).values.size(); l++) {
                 sum += resultsData.get(length).values.get(l);
-
             }
             int average = sum / resultsData.get(length).values.size();
 
@@ -184,10 +172,5 @@ public class Scan extends Activity {
         intent.putExtra("PositionData", (Serializable) positionData);
         setResult(RESULT_OK,intent);
         finish();
-
-
     }
-
-
-
 }
