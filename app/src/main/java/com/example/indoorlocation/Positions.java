@@ -40,7 +40,7 @@ public class Positions extends Activity {
     private Button calibrate;
     private Button finish;
     private EditText positionName;
-    private int readingCount = 30;
+    private int readingCount = 15;
     private TextView results;
     private String resultsText;
     private ListView positionsList;
